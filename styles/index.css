@@ -1,0 +1,53 @@
+header {
+  background: #e3e3e3;
+  padding: 2rem;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav > ul > li {
+  display: inline-block;
+}
+
+nav > ul > li + li{
+  padding-left: 1rem;
+}
+
+ul.tasks > li {
+  padding: 0.5rem 0;
+}
+
+.green {
+  display: inline-block;
+  background-color: green;
+  color: white;
+}
+
+.red {
+  display: inline-block;
+  background-color: red;
+  color: white;
+}
+
+footer {
+  background: #e3e3e3;
+  padding: 1rem;
+  text-align: right;
+}
+
+ul#names {
+  padding: 0.5rem;
+}
+
+ul#names > li + li {
+  padding-top: 0.5rem;
+}
+
+form {
+  margin: 1rem 0;
+}
