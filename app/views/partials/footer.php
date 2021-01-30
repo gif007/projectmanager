@@ -1,5 +1,5 @@
 <footer>
-    <span>copyright 2020</span>
+    <span>copyright <?= date("Y"); ?></span>
 </footer>
 
 </body>

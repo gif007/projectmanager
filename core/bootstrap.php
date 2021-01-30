@@ -8,8 +8,6 @@ App::bind('database', new QueryBuilder(
     Connection::make(App::get('config')['database'])
 ));
 
-App::bind('company', 'Ebon Corporation');
-
 
 function view($name, $data=[]) {
     extract($data);

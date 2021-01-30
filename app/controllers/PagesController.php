@@ -2,24 +2,54 @@
 
 namespace App\Controllers;
 use App\Core\App;
+use App\Models\Project;
+use App\Models\Task;
+
 
 class PagesController {
     public function home() {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
 
-        return view('index');
+        $projects = App::get('database')->selectProjects($_SESSION['userid']);
+
+        return view('index', compact('projects'));
     }
 
-    public function about() {
-        $company = App::get('company');
 
-        return view('about', compact('company'));
+    public function auth() {
+        session_start();
+        $username = htmlspecialchars($_POST['username']);
+        $password = htmlspecialchars($_POST['password']);
+        $user = App::get('database')->authenticateUser($username, $password);
+
+        if (sizeof($user) > 0) {
+            $_SESSION["loggedin"] = true;
+            $_SESSION["username"] = $user[0]->username;
+            $_SESSION["userid"] = $user[0]->id;
+            return redirect('');
+        } else {
+            $message = '<span style="color: red;">Login failed. Please try again:</span>';
+            return view('login', compact('message'));
+        }
     }
 
-    public function contact() {
-        return view('contact');
+
+    public function login() {
+
+        return view('login', compact('message'));
     }
 
-    public function culture() {
-        return view('about-culture');
+    public function logout() {
+        session_start();
+        $_SESSION['loggedin'] = false;
+
+        return redirect('login');
     }
+
+    // public function culture() {
+    //     return view('about-culture');
+    // }
 }
