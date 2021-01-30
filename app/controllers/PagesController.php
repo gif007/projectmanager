@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Core\App;
 use App\Models\Project;
 use App\Models\Task;
+use App\Core\{Router, Request};
 
 
 class PagesController {
@@ -39,7 +40,7 @@ class PagesController {
 
     public function login() {
 
-        return view('login', compact('message'));
+        return view('login');
     }
 
     public function logout() {
@@ -47,6 +48,13 @@ class PagesController {
         $_SESSION['loggedin'] = false;
 
         return redirect('login');
+    }
+
+    public function projectDetail(){
+        $projectID = (int)explode('/', Request::uri())[1];
+    
+        die(var_dump($projectID));
+
     }
 
     // public function culture() {
