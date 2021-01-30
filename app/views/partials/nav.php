@@ -8,7 +8,7 @@
       <li><a href='/'>Create Project</a></li>
       <li><a href='/'>About</a></li>
       <li id='logout'><a href='/logout'>Logout</a></li>
-      <li id='user'>User: <?= $_SESSION['username']; ?>(ID:<?= $_SESSION['userid']; ?>)</li>
+      <li id='user'>User: <?= strtoupper($_SESSION['username']); ?></li>
     </ul>
     
     <?php endif; ?>

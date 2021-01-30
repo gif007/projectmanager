@@ -7,7 +7,7 @@
 <p id='loginmsg'><?= $message; ?></p>
 <?php endif; ?>
 
-
+<?php if (!isset($_SESSION['loggedin']) or $_SESSION['loggedin'] == false) : ?>
 <form method='post'>
 <fieldset>
 <legend>Login</legend>
@@ -33,4 +33,5 @@ window.onload = ()=>{
 document.querySelector('input#username').focus();
 };
 </script>
+<?php endif; ?>
 <?php require('partials/footer.php'); ?>

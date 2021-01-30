@@ -43,5 +43,21 @@ class Project
     {
         return $this->tasks;
     }
+
+    function getTimeStamp()
+    {
+        $dateAndTime = explode(' ', $this->date_started);
+        $date = explode('-', $dateAndTime[0]);
+        $time = explode(':', $dateAndTime[1]);
+        $timestamp = mktime($time[0], $time[1], $time[2], $date[1], $date[2], $date[0]);
+        $date_created = date("Y/m/d", $timestamp);
+
+        return $date_created;
+    }
+
+    function getURL()
+    {
+        return "project/$this->id";
+    }
         
 }

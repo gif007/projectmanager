@@ -43,6 +43,11 @@ class PagesController {
 
 
     public function login() {
+        session_start();
+        if (isset($_SESSION['loggedin']) and $_SESSION['loggedin'] == true) {
+            $message = '<span style="color: red;">You are already logged in.</span>';
+            return view('login', compact('message'));
+        }
 
         return view('login');
     }
@@ -57,9 +62,14 @@ class PagesController {
     }
 
     public function projectDetail(){
+        session_start();
         $projectID = (int)explode('/', Request::uri())[1];
     
-        die(var_dump($projectID));
+        $project = App::get('database')->selectProject($projectID)[0];
+        $project->setTasks();
+
+        // die(var_dump($project));
+        return view('projectdetail', compact('project'));
 
     }
 

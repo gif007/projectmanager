@@ -1,28 +1,25 @@
 <?php require('partials/head.php'); ?>
 <header>
-    <h1>Welcome</h1>
+    <h1>My Projects</h1>
 </header>
 
-<p>This is the home page.</p>
-
-<h2>Project</h2>
-<ul>
-    <?php foreach ($projects as $project) : ?>
-    <?php foreach ($project as $key => $value) : ?>
-        <li><?= $key; ?> => <?= $value; ?></li>
-        <?php endforeach; ?>
-    <?php endforeach; ?>
-</ul>
-        
-<h2>Tasks</h2>
-<ul>
+<div class='projects'>
     <?php foreach($projects as $project) : ?>
-    <?php foreach($project->getTasks() as $task) :?>
-    <?php foreach($task as $property => $value) :?>
-    <li><?= $property; ?> => <?= $value; ?></li>
+        <table class='project-card'>
+            <tr class='header'>
+                <th>Title</th><th>Date</th>
+            </tr>
+            <tr>
+                <td><a href=<?= $project->getURL(); ?>><?= $project->title; ?></a></td><td><?= $project->getTimeStamp(); ?></td>
+            </tr>
+            <tr class='header'>
+                <th colspan=2>Status</th>
+            </tr>
+            <tr>
+                <td colspan=2><?= $project->status; ?></td>
+            </tr>
+        </table>
     <?php endforeach; ?>
-    <?php endforeach; ?>
-    <?php endforeach; ?>
-</ul>
+</div>
 
 <?php require('partials/footer.php'); ?>

@@ -18,6 +18,10 @@ nav > ul > li + li{
   padding-left: 1rem;
 }
 
+nav {
+  margin-bottom: 0.5rem;
+}
+
 li#user, li#logout {
   float: right;
 }
@@ -76,4 +80,46 @@ p#loginmsg {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+div.projects {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+}
+
+table.project-card{
+  border-collapse: collapse;
+  width: 400px;
+}
+
+table.project-card + table.project-card {
+  margin-top: 2rem;
+}
+
+th {
+  text-align: left;
+  padding-left: 0.25rem;
+}
+
+th:nth-child(even) {
+  text-align: right;
+}
+
+tr:nth-child(odd) {
+  background-color: grey;
+}
+
+tr:nth-child(even) {
+  background-color: lightgray;
+}
+
+td:nth-child(even) {
+  text-align: right;
+}
+
+td {
+  padding: 0.25rem;
 }
