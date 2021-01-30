@@ -15,6 +15,10 @@ class PagesController {
         }
 
         $projects = App::get('database')->selectProjects($_SESSION['userid']);
+        
+        foreach ($projects as $project) {
+            $project->setTasks();
+        }
 
         return view('index', compact('projects'));
     }

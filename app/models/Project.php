@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Core\App;
 
 class Project
 {
@@ -32,8 +33,9 @@ class Project
     //         $this->created_by = $created_by;
     //     }
 
-    function setTasks($tasks=[])
+    function setTasks()
     {
+        $tasks = App::get('database')->getTasksByProject((int)$this->id);
         $this->tasks = $tasks;
     }
 

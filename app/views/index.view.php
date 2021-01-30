@@ -13,5 +13,16 @@
         <?php endforeach; ?>
     <?php endforeach; ?>
 </ul>
+        
+<h2>Tasks</h2>
+<ul>
+    <?php foreach($projects as $project) : ?>
+    <?php foreach($project->getTasks() as $task) :?>
+    <?php foreach($task as $property => $value) :?>
+    <li><?= $property; ?> => <?= $value; ?></li>
+    <?php endforeach; ?>
+    <?php endforeach; ?>
+    <?php endforeach; ?>
+</ul>
 
 <?php require('partials/footer.php'); ?>
