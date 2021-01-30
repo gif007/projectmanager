@@ -15,7 +15,7 @@ class PagesController {
         }
 
         $projects = App::get('database')->selectProjects($_SESSION['userid']);
-        
+
         foreach ($projects as $project) {
             $project->setTasks();
         }
@@ -49,6 +49,8 @@ class PagesController {
 
     public function logout() {
         session_start();
+        unset($_SESSION['username']);
+        unset($_SESSION['userid']);
         $_SESSION['loggedin'] = false;
 
         return redirect('login');
