@@ -50,7 +50,7 @@ class Project
         $date = explode('-', $dateAndTime[0]);
         $time = explode(':', $dateAndTime[1]);
         $timestamp = mktime($time[0], $time[1], $time[2], $date[1], $date[2], $date[0]);
-        $date_created = date("Y/m/d", $timestamp);
+        $date_created = date("Y/m/d H:m", $timestamp);
 
         return $date_created;
     }
@@ -68,6 +68,11 @@ class Project
     function getEditProjectURL() 
     {
         return "/project/$this->id/edit";
+    }
+
+    function getUser()
+    {
+        return App::get('database')->selectUser($this->created_by)[0]->username;
     }
         
 }

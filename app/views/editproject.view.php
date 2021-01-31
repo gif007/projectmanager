@@ -1,11 +1,11 @@
 <?php require('partials/head.php'); ?>
 <header>
-    <h1>Create New Project</h1>
+    <h1>Edit Project</h1>
 </header>
 
 <form method="post" id="createProject">
     <fieldset>
-        <legend>Create Project</legend>
+        <legend>Edit <?= $project->title; ?></legend>
         <ul>
             <li>
                 <label for="title">Title:</label>

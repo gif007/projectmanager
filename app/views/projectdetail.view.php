@@ -5,19 +5,28 @@
 
 <div class='projects'>
     <a id="editlink" href=<?= $project->getEditProjectURL(); ?>>Edit</a>
-    <p><?= $project->title; ?></p>
-    <p><?= $project->status; ?></p>
-    <p><?= $project->getTimestamp(); ?></p>
-    <p><?= $project->description; ?></p>
-    <p><?= $project->client; ?></p>
+    <p>Title: <?= $project->title; ?></p>
+    <p>Client: <?= $project->client; ?></p>
+    <p>Date Created: <?= $project->getTimestamp(); ?></p>
+    <p>Quote: <?= $project->quote; ?></p>
+    <p>Description: <?= $project->description; ?></p>
+    <p>Comments: <?= $project->comments; ?></p>
+    <p>Status: <?= $project->status; ?></p>
+    <p>Department: <?= $project->department; ?></p>
+
     <h2>Tasks:</h2>
-    <ul>
     <?php foreach ($project->getTasks() as $task) : ?>
+    <ul class='tasklist'>
         <li>Title: <?= $task->title; ?></li>
+        <li>Date Started: <?= $task->date_set; ?></li>
+        <li>Description: <?= $task->description; ?></li>
+        <li>Type: <?= $task->type; ?></li>
         <li>Status: <?= $task->status; ?></li>
-        <li>Assigned to: <?= $task->assigned_to; ?></li>
-    <?php endforeach; ?>
+        <li>Assigned To: <?= $task->assigned_to; ?></li>
+        <li><a href=<?= $task->getEditURL(); ?>>Edit</a></li>
     </ul>
+    <?php endforeach; ?>
+
     <a href=<?= $project->getAddTaskURL(); ?>>Create New Task</a>
 </div>
 

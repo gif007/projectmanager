@@ -141,3 +141,7 @@ td:nth-child(even) {
 td {
   padding: 0.25rem;
 }
+
+ul.tasklist {
+  margin-bottom: 1rem;
+}

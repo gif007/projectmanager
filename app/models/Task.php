@@ -25,4 +25,9 @@ class Task
     //     $this->desc = $desc;
     //     $this->type = $type;
     // }
+
+    public function getEditURL()
+    {
+        return "/task/$this->id/edit";
+    }
 }

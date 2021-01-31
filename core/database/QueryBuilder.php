@@ -46,6 +46,24 @@ class QueryBuilder
         return $statement->fetchAll(PDO::FETCH_CLASS, "App\Models\Project");
     }
 
+    public function selectUser($userid) 
+    {
+        $statement = $this->pdo->prepare("select * from users where id=$userid");
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_CLASS);
+    }
+
+    public function selectTask($taskid) 
+    {
+        $statement = $this->pdo->prepare("select * from tasks where id=$taskid");
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_CLASS, "App\Models\Task");
+    }
+
     public function getTasksByProject($projectid) 
     {
         $statement = $this->pdo->prepare("select * from tasks where projectId=$projectid");

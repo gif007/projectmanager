@@ -154,8 +154,10 @@ class PagesController {
         if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
             return redirect('login');
         }
+
+        $projects = App::get('database')->selectAllIntoClass('projects', 'App\Models\Project');
         
-        die(var_dump("Archive"));
+        return view('archive', compact('projects'));
     }
 
     public function about() {
@@ -200,6 +202,40 @@ class PagesController {
         return redirect("project/$projectID");
         
     }
+
+    public function editTask() {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+
+        $taskID = (int)explode('/', Request::uri())[1];
+        $task = App::get('database')->selectTask($taskID)[0];
+
+        return view('edittask', compact('task'));
+    }
+
+    public function submitTaskUpdate() {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+
+        $taskID = (int)explode('/', Request::uri())[1];
+        $task = App::get('database')->selectTask($taskID)[0];
+
+        App::get('database')->update('tasks', [
+            'title' => $_POST['title'],
+            'description' => $_POST['description'],
+            'type' => $_POST['type'],
+            'status' => $_POST['status'],
+            'assigned_to' => $_POST['assigned_to']
+        ], $taskID);
+
+        return redirect("project/$task->projectId");
+        
+    }
+
 
 
 
