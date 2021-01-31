@@ -30,7 +30,7 @@ class QueryBuilder
 
     public function selectProjects($userid) 
     {
-        $statement = $this->pdo->prepare("select * from projects where created_by=$userid order by status desc, date_started desc");
+        $statement = $this->pdo->prepare("select * from projects where created_by=$userid order by date_started desc");
 
         $statement->execute();
 
@@ -85,8 +85,9 @@ class QueryBuilder
   
     public function update($table, $parameters, $id)
     {
+        // Needs work
         $sql = sprintf(
-            'insert into %s (%s) values (%s) where id=$id',
+            'update %s set %s=%s where id=$id',
             $table,
             implode(', ', array_keys($parameters)),
             ':' . implode(', :', array_keys($parameters))

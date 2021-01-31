@@ -57,7 +57,17 @@ class Project
 
     function getURL()
     {
-        return "project/$this->id";
+        return "/project/$this->id";
+    }
+
+    function getAddTaskURL()
+    {
+        return "/project/$this->id/add-task";
+    }
+
+    function getEditProjectURL() 
+    {
+        return "/project/$this->id/edit";
     }
         
 }

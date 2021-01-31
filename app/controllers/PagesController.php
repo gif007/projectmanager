@@ -63,6 +63,9 @@ class PagesController {
 
     public function projectDetail(){
         session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
         $projectID = (int)explode('/', Request::uri())[1];
     
         $project = App::get('database')->selectProject($projectID)[0];
@@ -72,6 +75,115 @@ class PagesController {
         return view('projectdetail', compact('project'));
 
     }
+
+    public function createProject() {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+        
+        return view('createproject');
+    }
+
+    public function submitProject() {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+        
+        App::get('database')->insert('projects', [
+            'title' => $_POST['title'],
+            'client' => $_POST['client'],
+            'comments' => $_POST['comments'],
+            'description' => $_POST['description'],
+            'status' => $_POST['status'],
+            'quote' => $_POST['quote'],
+            'department' => $_POST['department'],
+            'created_by' => $_POST['created_by']
+        ]);
+
+        $project = App::get('database')->selectProjects($_SESSION['userid'])[0];
+
+        return redirect("project/$project->id");
+    }
+
+    public function createTask() {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+
+        $projectID = (int)explode('/', Request::uri())[1];
+        $project = App::get('database')->selectProject($projectID)[0];
+        
+        return view('createtask', compact('project'));
+    }
+
+    public function submitTask() {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+
+        App::get('database')->insert('tasks', [
+            'title' => $_POST['title'],
+            'description' => $_POST['description'],
+            'type' => $_POST['type'],
+            'status' => $_POST['status'],
+            'assigned_to' => $_POST['assigned_to'],
+            'projectId' => $_POST['projectId']
+        ]);
+
+        $project = $_POST['projectId'];
+
+        return redirect("project/$project");
+
+    }
+
+    public function search() {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+        
+        die(var_dump("Search"));
+    }
+
+    public function archive() {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+        
+        die(var_dump("Archive"));
+    }
+
+    public function about() {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+        
+        die(var_dump("About"));
+    }
+
+    public function editProject() {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+
+        $projectID = (int)explode('/', Request::uri())[1];
+        $project = App::get('database')->selectProject($projectID)[0];
+
+        die(var_dump($project));
+    }
+
+    public function submitProjectUpdate() {
+        
+    }
+
+
 
     // public function culture() {
     //     return view('about-culture');

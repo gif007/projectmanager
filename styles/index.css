@@ -67,13 +67,27 @@ label {
   text-align: right;
 }
 
-form > ul > li + li {
+form > fieldset > ul > li + li {
   margin-top: 0.5rem;
 }
 
-button#login {
+button#login, button#createProject {
   margin-left: 105px;
   margin-top: 1rem;
+}
+
+textarea {
+  vertical-align: top;
+}
+
+form#createProject > fieldset > ul > li > input {
+  width: 40%;
+}
+
+form#createProject > fieldset > ul > li > textarea {
+  height: 8rem;
+  width: 70%;
+  resize: none;
 }
 
 p#loginmsg {
@@ -88,6 +102,10 @@ div.projects {
   align-items: center;
   justify-content: center;
   padding: 3rem;
+}
+
+a#editlink {
+  align-self: flex-end;
 }
 
 table.project-card{
