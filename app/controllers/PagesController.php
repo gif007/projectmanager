@@ -176,10 +176,28 @@ class PagesController {
         $projectID = (int)explode('/', Request::uri())[1];
         $project = App::get('database')->selectProject($projectID)[0];
 
-        die(var_dump($project));
+        return view('editproject', compact('project'));
     }
 
     public function submitProjectUpdate() {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+
+        $projectID = (int)explode('/', Request::uri())[1];
+
+        App::get('database')->update('projects', [
+            'title' => $_POST['title'],
+            'client' => $_POST['client'],
+            'quote' => $_POST['quote'],
+            'description' => $_POST['description'],
+            'comments' => $_POST['comments'],
+            'status' => $_POST['status'],
+            'department' => $_POST['department']
+        ], $projectID);
+
+        return redirect("project/$projectID");
         
     }
 

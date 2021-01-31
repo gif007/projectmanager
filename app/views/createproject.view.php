@@ -60,6 +60,7 @@
             <li>
                 <button type="submit" id="createProject">Submit</button>
             </li>
+            </ul>
     </fieldset>
 </form>
 

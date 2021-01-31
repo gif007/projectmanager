@@ -86,17 +86,20 @@ class QueryBuilder
     public function update($table, $parameters, $id)
     {
         // Needs work
-        $sql = sprintf(
-            'update %s set %s=%s where id=$id',
-            $table,
-            implode(', ', array_keys($parameters)),
-            ':' . implode(', :', array_keys($parameters))
-        );
+
+        foreach ($parameters as $key => $value)
+        {
+            $arr[] = "$key='$value'";
+        }
+
+        $colsvals = implode($arr, ', ');
+
+        $sql = "update $table set $colsvals where id=$id";
 
         try {
             $statement = $this->pdo->prepare($sql);
 
-            $statement->execute($parameters);
+            $statement->execute();
         } catch (Exception $e) {
             die('Whoops, something went wrong');
         }
