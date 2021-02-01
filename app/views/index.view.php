@@ -17,10 +17,10 @@
                     <td><a href=<?= $project->getURL(); ?>><?= $project->title; ?></a></td><td><?= $project->getTimeStamp(); ?></td>
                 </tr>
                 <tr class='header'>
-                    <th colspan=2>Status</th>
+                    <th colspan=2>Description</th>
                 </tr>
                 <tr>
-                    <td colspan=2><?= $project->status; ?></td>
+                    <td colspan=2><?= $project->description; ?></td>
                 </tr>
             </table>
         <?php endforeach; ?>

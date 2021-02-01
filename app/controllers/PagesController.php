@@ -115,6 +115,10 @@ class PagesController {
 
         $projectID = (int)explode('/', Request::uri())[1];
         $project = App::get('database')->selectProject($projectID)[0];
+
+        if ($project->created_by !== $_SESSION['userid']) {
+            return redirect('login');
+        }
         
         return view('createtask', compact('project'));
     }
@@ -134,9 +138,14 @@ class PagesController {
             'projectId' => $_POST['projectId']
         ]);
 
-        $project = $_POST['projectId'];
+        $projectid = $_POST['projectId'];
+        $project = App::get('database')->selectProject($projectid)[0];
 
-        return redirect("project/$project");
+        if ($project->created_by !== $_SESSION['userid']) {
+            return redirect('login');
+        }
+
+        return redirect("project/$projectid");
 
     }
 
@@ -146,7 +155,24 @@ class PagesController {
             return redirect('login');
         }
         
-        die(var_dump("Search"));
+        return view('search');
+    }
+
+    public function postSearch() {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+
+        $result = App::get('database')->queryProjects($_POST['query']);
+
+        if (sizeof($result) > 0) {
+            return view('search', compact('result'));
+        }
+
+        $noresult = 'Nothing found';
+        
+        return view('search', compact('noresult'));
     }
 
     public function archive() {
@@ -166,7 +192,7 @@ class PagesController {
             return redirect('login');
         }
         
-        die(var_dump("About"));
+        return view('about');
     }
 
     public function editProject() {
@@ -178,6 +204,10 @@ class PagesController {
         $projectID = (int)explode('/', Request::uri())[1];
         $project = App::get('database')->selectProject($projectID)[0];
 
+        if ($project->created_by !== $_SESSION['userid']) {
+            return redirect('login');
+        }
+
         return view('editproject', compact('project'));
     }
 
@@ -188,6 +218,11 @@ class PagesController {
         }
 
         $projectID = (int)explode('/', Request::uri())[1];
+        $project = App::get('database')->selectProject($projectID)[0];
+
+        if ($project->created_by !== $_SESSION['userid']) {
+            return redirect('login');
+        }
 
         App::get('database')->update('projects', [
             'title' => $_POST['title'],
@@ -212,6 +247,12 @@ class PagesController {
         $taskID = (int)explode('/', Request::uri())[1];
         $task = App::get('database')->selectTask($taskID)[0];
 
+        $project = App::get('database')->selectProject($task->projectId)[0];
+
+        if ($project->created_by !== $_SESSION['userid']) {
+            return redirect('login');
+        }
+
         return view('edittask', compact('task'));
     }
 
@@ -223,6 +264,12 @@ class PagesController {
 
         $taskID = (int)explode('/', Request::uri())[1];
         $task = App::get('database')->selectTask($taskID)[0];
+
+        $project = App::get('database')->selectProject($task->projectId)[0];
+
+        if ($project->created_by !== $_SESSION['userid']) {
+            return redirect('login');
+        }
 
         App::get('database')->update('tasks', [
             'title' => $_POST['title'],

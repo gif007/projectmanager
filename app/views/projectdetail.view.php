@@ -4,7 +4,9 @@
 </header>
 
 <div class='projects'>
-    <a id="editlink" href=<?= $project->getEditProjectURL(); ?>>Edit</a>
+    <?php if($_SESSION['userid'] == $project->created_by) : ?>
+        <a id="editlink" href=<?= $project->getEditProjectURL(); ?>>Edit</a>
+    <?php endif; ?>
     <p>Title: <?= $project->title; ?></p>
     <p>Client: <?= $project->client; ?></p>
     <p>Date Created: <?= $project->getTimestamp(); ?></p>
@@ -23,11 +25,16 @@
         <li>Type: <?= $task->type; ?></li>
         <li>Status: <?= $task->status; ?></li>
         <li>Assigned To: <?= $task->assigned_to; ?></li>
-        <li><a href=<?= $task->getEditURL(); ?>>Edit</a></li>
+        <?php if($_SESSION['userid'] == $project->created_by) : ?>
+            <li><a href=<?= $task->getEditURL(); ?>>Edit</a></li>
+        <?php endif; ?>
+        
     </ul>
     <?php endforeach; ?>
-
-    <a href=<?= $project->getAddTaskURL(); ?>>Create New Task</a>
+    <?php if($_SESSION['userid'] == $project->created_by) : ?>
+        <a href=<?= $project->getAddTaskURL(); ?>>Create New Task</a>
+    <?php endif; ?>
+    
 </div>
 
 <?php require('partials/footer.php'); ?>

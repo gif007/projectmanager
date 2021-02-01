@@ -123,4 +123,14 @@ class QueryBuilder
         }
 
     }
+
+    public function queryProjects($query)
+    {
+        $statement = $this->pdo->prepare("select * from projects where description like '%$query%'");
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_CLASS, "App\Models\Project");
+
+    }
 }

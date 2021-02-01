@@ -9,12 +9,12 @@
         <ul>
             <li>
                 <label for="title">Title:</label>
-                <input name="title" id="title" value="<?= $project->title; ?>">
+                <input name="title" id="title" value="<?= $project->title; ?>" maxlength=50>
             </li>
 
             <li>
                 <label for="client">Client:</label>
-                <input name="client" id="client" value="<?= $project->client; ?>">
+                <input name="client" id="client" value="<?= $project->client; ?>" maxlength=100>
             </li>
 
             <li>
@@ -24,7 +24,7 @@
 
             <li>
                 <label for="description">Description:</label>
-                <textarea name="description" id="description"><?= $project->description; ?></textarea>
+                <textarea name="description" id="description" maxlength=100><?= $project->description; ?></textarea>
             </li>
 
             <li>
@@ -35,21 +35,26 @@
             <li>
                 <label for="status">Status:</label>
                 <select id="status" name="status">
-                    <option value="Inactive">Inactive</option>
-                    <option value="On hold">On hold</option>
-                    <option value="Active">Active</option>
-                    <option value="Review">Review</option>
-                    <option value="Completed">Completed</option>
+                    <?php foreach(['Inactive', 'On hold', 'Active', 'Review', 'Completed'] as $status) : ?>
+                    <?php if ($project->status == $status) : ?>
+                    <option value="<?= $status; ?>" selected><?= $status; ?></option>
+                    <?php else : ?>
+                    <option value="<?= $status; ?>"><?= $status; ?></option>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </select>
             </li>
 
             <li>
                 <label for="department">Department:</label>
                 <select id="department" name="department">
-                    <option value="Estimating">Estimating</option>
-                    <option value="Design">Design</option>
-                    <option value="Manufacture">Manufacture</option>
-                    <option value="Marketing">Marketing</option>
+                <?php foreach(['Estimating', 'Design', 'Manufacture', 'Marketing'] as $department) : ?>
+                    <?php if ($project->department == $department) : ?>
+                    <option value="<?= $department; ?>" selected><?= $department; ?></option>
+                    <?php else : ?>
+                    <option value="<?= $department; ?>"><?= $department; ?></option>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </select>
             </li>
         

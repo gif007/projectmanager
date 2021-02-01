@@ -9,12 +9,12 @@
         <ul>
             <li>
                 <label for="title">Title:</label>
-                <input name="title" id="title">
+                <input name="title" id="title" maxlength=50>
             </li>
 
             <li>
                 <label for="client">Client:</label>
-                <input name="client" id="client">
+                <input name="client" id="client" maxlength=100>
             </li>
 
             <li>
@@ -28,7 +28,7 @@
 
             <li>
                 <label for="description">Description:</label>
-                <textarea name="description" id="description"></textarea>
+                <textarea name="description" id="description" maxlength=100></textarea>
             </li>
 
             <li>

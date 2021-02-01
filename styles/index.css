@@ -111,6 +111,7 @@ a#editlink {
 table.project-card{
   border-collapse: collapse;
   width: 400px;
+  max-width: 400px;
 }
 
 table.project-card + table.project-card {
@@ -144,4 +145,25 @@ td {
 
 ul.tasklist {
   margin-bottom: 1rem;
+}
+
+form.search {
+  width: 25%;
+}
+
+form.search > fieldset {
+  border: none;
+}
+
+
+div.searchfield {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+div.searchfield > button {
+margin-top: 1rem;
 }
