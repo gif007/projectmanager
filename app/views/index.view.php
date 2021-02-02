@@ -11,7 +11,7 @@
         <?php foreach($projects as $project) : ?>
             <table class='project-card'>
                 <tr class='header'>
-                    <th>Title</th><th>Date</th>
+                    <th>Title</th><th>Date Created</th>
                 </tr>
                 <tr>
                     <td><a href=<?= $project->getURL(); ?>><?= $project->title; ?></a></td><td><?= $project->getTimeStamp(); ?></td>
@@ -21,6 +21,12 @@
                 </tr>
                 <tr>
                     <td colspan=2><?= $project->description; ?></td>
+                </tr>
+                <tr class='header'>
+                    <th>Status</th><th>Department</th>
+                </tr>
+                <tr>
+                    <td><?= $project->status; ?></td><td><?= $project->department; ?></td>
                 </tr>
             </table>
         <?php endforeach; ?>

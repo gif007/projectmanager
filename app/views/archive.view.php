@@ -17,6 +17,12 @@
                     <td><a href=<?= $project->getURL(); ?>><?= $project->title; ?></a></td><td><?= $project->getTimeStamp(); ?></td>
                 </tr>
                 <tr class='header'>
+                    <th colspan=2>Description</th>
+                </tr>
+                <tr>
+                    <td colspan=2><?= $project->description; ?></td>
+                </tr>
+                <tr class='header'>
                     <th>Status</th>
                     <th>Created By</th>
                 </tr>

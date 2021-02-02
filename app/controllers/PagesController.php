@@ -6,6 +6,10 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Core\{Router, Request};
 
+require "app/functions/cleanData.php";
+require "app/functions/dd.php";
+
+
 
 class PagesController {
     public function home() {
@@ -26,9 +30,10 @@ class PagesController {
 
     public function auth() {
         session_start();
-        $username = htmlspecialchars($_POST['username']);
-        $password = htmlspecialchars($_POST['password']);
-        $user = App::get('database')->authenticateUser($username, $password);
+        $cleaned_data = cleanData($_POST);
+
+        $user = App::get('database')->authenticateUser($cleaned_data['username'],
+            $cleaned_data['password']);
 
         if (sizeof($user) > 0) {
             $_SESSION["loggedin"] = true;
@@ -90,16 +95,18 @@ class PagesController {
         if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
             return redirect('login');
         }
+
+        $cleaned_data = cleanData($_POST);
         
         App::get('database')->insert('projects', [
-            'title' => $_POST['title'],
-            'client' => $_POST['client'],
-            'comments' => $_POST['comments'],
-            'description' => $_POST['description'],
-            'status' => $_POST['status'],
-            'quote' => $_POST['quote'],
-            'department' => $_POST['department'],
-            'created_by' => $_POST['created_by']
+            'title' => $cleaned_data['title'],
+            'client' => $cleaned_data['client'],
+            'comments' => $cleaned_data['comments'],
+            'description' => $cleaned_data['description'],
+            'status' => $cleaned_data['status'],
+            'quote' => $cleaned_data['quote'],
+            'department' => $cleaned_data['department'],
+            'created_by' => $cleaned_data['created_by']
         ]);
 
         $project = App::get('database')->selectProjects($_SESSION['userid'])[0];
@@ -129,13 +136,15 @@ class PagesController {
             return redirect('login');
         }
 
+        $cleaned_data = cleanData($_POST);
+
         App::get('database')->insert('tasks', [
-            'title' => $_POST['title'],
-            'description' => $_POST['description'],
-            'type' => $_POST['type'],
-            'status' => $_POST['status'],
-            'assigned_to' => $_POST['assigned_to'],
-            'projectId' => $_POST['projectId']
+            'title' => $cleaned_data['title'],
+            'description' => $cleaned_data['description'],
+            'type' => $cleaned_data['type'],
+            'status' => $cleaned_data['status'],
+            'assigned_to' => $cleaned_data['assigned_to'],
+            'projectId' => $cleaned_data['projectId']
         ]);
 
         $projectid = $_POST['projectId'];
@@ -164,7 +173,9 @@ class PagesController {
             return redirect('login');
         }
 
-        $result = App::get('database')->queryProjects($_POST['query']);
+        $cleaned_data = cleanData($_POST);
+
+        $result = App::get('database')->queryProjects($cleaned_data['query']);
 
         if (sizeof($result) > 0) {
             return view('search', compact('result'));
@@ -224,14 +235,16 @@ class PagesController {
             return redirect('login');
         }
 
+        $cleaned_data = cleanData($_POST);
+
         App::get('database')->update('projects', [
-            'title' => $_POST['title'],
-            'client' => $_POST['client'],
-            'quote' => $_POST['quote'],
-            'description' => $_POST['description'],
-            'comments' => $_POST['comments'],
-            'status' => $_POST['status'],
-            'department' => $_POST['department']
+            'title' => $cleaned_data['title'],
+            'client' => $cleaned_data['client'],
+            'quote' => $cleaned_data['quote'],
+            'description' => $cleaned_data['description'],
+            'comments' => $cleaned_data['comments'],
+            'status' => $cleaned_data['status'],
+            'department' => $cleaned_data['department']
         ], $projectID);
 
         return redirect("project/$projectID");
@@ -271,22 +284,18 @@ class PagesController {
             return redirect('login');
         }
 
+        $cleaned_data = cleanData($_POST);
+
         App::get('database')->update('tasks', [
-            'title' => $_POST['title'],
-            'description' => $_POST['description'],
-            'type' => $_POST['type'],
-            'status' => $_POST['status'],
-            'assigned_to' => $_POST['assigned_to']
+            'title' => $cleaned_data['title'],
+            'description' => $cleaned_data['description'],
+            'type' => $cleaned_data['type'],
+            'status' => $cleaned_data['status'],
+            'assigned_to' => $cleaned_data['assigned_to']
         ], $taskID);
 
         return redirect("project/$task->projectId");
         
     }
 
-
-
-
-    // public function culture() {
-    //     return view('about-culture');
-    // }
 }
