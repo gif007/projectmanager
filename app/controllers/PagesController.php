@@ -32,18 +32,68 @@ class PagesController {
         session_start();
         $cleaned_data = cleanData($_POST);
 
-        $user = App::get('database')->authenticateUser($cleaned_data['username'],
-            $cleaned_data['password']);
+        $user = App::get('database')->authenticateUser($cleaned_data['username']);
 
-        if (sizeof($user) > 0) {
+        if (sizeof($user) > 0 && $user[0]->firstlogin == false) {
+            if (password_verify($cleaned_data['password'], $user[0]->password))
+            {
+                $_SESSION["loggedin"] = true;
+                $_SESSION["username"] = $user[0]->username;
+                $_SESSION["userid"] = $user[0]->id;
+                return redirect('');
+            }
+        } elseif (sizeof($user) > 0 && $user[0]->firstlogin == true) {
             $_SESSION["loggedin"] = true;
             $_SESSION["username"] = $user[0]->username;
             $_SESSION["userid"] = $user[0]->id;
-            return redirect('');
+            return redirect('reset-password');
         } else {
             $message = '<span style="color: red;">Login failed. Please try again:</span>';
             return view('login', compact('message'));
         }
+    }
+
+    public function resetPassword()
+    {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+
+        return view('reset-password');
+    }
+
+    public function submitResetPassword()
+    {
+        session_start();
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
+            return redirect('login');
+        }
+
+        $user = App::get('database')->selectUser($_SESSION['userid'])[0];
+
+        $cleaned_data = cleanData($_POST);
+
+        if (!password_verify($cleaned_data['oldpassword'], $user->password))
+        {
+            $message = '<span style="color: red;">Incorrect entry for current password';
+            return view('reset-password', compact('message'));
+        }
+
+        if ($cleaned_data['newpassword'] !== $cleaned_data['newpassword2'])
+        {
+            $message = '<span style="color: red;">New passwords do not match';
+            return view('reset-password', compact('message'));
+        }
+
+        $newpassword = [
+            'password' => password_hash($cleaned_data['newpassword'], PASSWORD_DEFAULT)
+        ];
+        
+        App::get('database')->update('users', $newpassword, $_SESSION['userid']);
+        App::get('database')->update('users', ['firstlogin' => 0], $_SESSION['userid']);
+
+        return redirect('');
     }
 
 

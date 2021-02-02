@@ -17,3 +17,5 @@ $router->get("#^project/[0-9]+/edit$#", 'PagesController@editProject');
 $router->post("#^project/[0-9]+/edit$#", 'PagesController@submitProjectUpdate');
 $router->get("#^task/[0-9]+/edit$#", 'PagesController@editTask');
 $router->post("#^task/[0-9]+/edit$#", 'PagesController@submitTaskUpdate');
+$router->get("#^reset-password$#", 'PagesController@resetPassword');
+$router->post("#^reset-password$#", 'PagesController@submitResetPassword');

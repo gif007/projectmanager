@@ -10,7 +10,7 @@
     <p>Title: <?= $project->title; ?></p>
     <p>Client: <?= $project->client; ?></p>
     <p>Date Created: <?= $project->getTimestamp(); ?></p>
-    <p>Quote: <?= $project->quote; ?></p>
+    <p>Quote: $<?= $project->quote; ?>.00</p>
     <p>Description: <?= $project->description; ?></p>
     <p>Comments: <?= $project->comments; ?></p>
     <p>Status: <?= $project->status; ?></p>
@@ -20,7 +20,7 @@
     <?php foreach ($project->getTasks() as $task) : ?>
     <ul class='tasklist'>
         <li>Title: <?= $task->title; ?></li>
-        <li>Date Started: <?= $task->date_set; ?></li>
+        <li>Date Started: <?= $task->getTimestamp(); ?></li>
         <li>Description: <?= $task->description; ?></li>
         <li>Type: <?= $task->type; ?></li>
         <li>Status: <?= $task->status; ?></li>

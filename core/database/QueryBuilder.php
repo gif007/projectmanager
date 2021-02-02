@@ -10,9 +10,9 @@ class QueryBuilder
         $this->pdo = $pdo;
     }
 
-    public function authenticateUser($username, $password) 
+    public function authenticateUser($username) 
     {
-        $statement = $this->pdo->prepare("select * from users where username='$username' and password='$password';");
+        $statement = $this->pdo->prepare("select * from users where username='$username'");
 
         $statement->execute();
 
@@ -103,7 +103,6 @@ class QueryBuilder
   
     public function update($table, $parameters, $id)
     {
-        // Needs work
 
         foreach ($parameters as $key => $value)
         {
@@ -113,6 +112,8 @@ class QueryBuilder
         $colsvals = implode($arr, ', ');
 
         $sql = "update $table set $colsvals where id=$id";
+
+        // die(var_dump($sql));
 
         try {
             $statement = $this->pdo->prepare($sql);
