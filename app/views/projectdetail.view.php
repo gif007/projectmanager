@@ -4,32 +4,101 @@
 </header>
 
 <div class='projects'>
-    <?php if($_SESSION['userid'] == $project->created_by) : ?>
-        <a id="editlink" href=<?= $project->getEditProjectURL(); ?>>Edit</a>
-    <?php endif; ?>
-    <p>Title: <?= $project->title; ?></p>
-    <p>Client: <?= $project->client; ?></p>
-    <p>Date Created: <?= $project->getTimestamp(); ?></p>
-    <p>Quote: $<?= $project->quote; ?>.00</p>
-    <p>Description: <?= $project->description; ?></p>
-    <p>Comments: <?= $project->comments; ?></p>
-    <p>Status: <?= $project->status; ?></p>
-    <p>Department: <?= $project->department; ?></p>
 
-    <h2>Tasks:</h2>
-    <?php foreach ($project->getTasks() as $task) : ?>
-    <ul class='tasklist'>
-        <li>Title: <?= $task->title; ?></li>
-        <li>Date Started: <?= $task->getTimestamp(); ?></li>
-        <li>Description: <?= $task->description; ?></li>
-        <li>Type: <?= $task->type; ?></li>
-        <li>Status: <?= $task->status; ?></li>
-        <li>Assigned To: <?= $task->assigned_to; ?></li>
-        <?php if($_SESSION['userid'] == $project->created_by) : ?>
-            <li><a href=<?= $task->getEditURL(); ?>>Edit</a></li>
-        <?php endif; ?>
+    <h2>Project</h2>
+    <table class='projectDetail'>
         
-    </ul>
+        <tr class='header'>
+            <th>Title</th>
+            <td><?= $project->title; ?></td>
+        </tr>
+
+        <tr>
+            <th>Date Created</th>
+            <td colspan=2><?= $project->getTimestamp(); ?></td>
+        </tr>
+
+        <tr>
+            <th>Status</th>
+            <td colspan=2><?= $project->status; ?></td>
+        </tr>
+
+        <tr>
+            <th>Client</th>
+            <td colspan=2><?= $project->client; ?></td>
+        </tr>
+
+        <tr>
+            <th>Quote</th>
+            <td colspan=2>$<?= $project->quote; ?>.00</td>
+        </tr>
+
+        <tr>
+            <th>Department</th>
+            <td colspan=2><?= $project->department; ?></td>
+        </tr>
+
+        <tr>
+            <th>Description</th>
+            <td colspan=2><?= $project->description; ?></td>
+        </tr>
+
+        <tr>
+            <th>Comments</th>
+            <td colspan=2><?= $project->comments; ?></td>
+        </tr>
+
+        <tr>
+            <?php if($_SESSION['userid'] == $project->created_by) : ?>
+                <th colspan=3 id='editlink'><a href=<?= $project->getEditProjectURL(); ?>>Edit</a></th>
+            <?php endif; ?>
+        </tr>
+
+    </table>
+    
+
+    <h2>Tasks</h2>
+    <?php foreach ($project->getTasks() as $task) : ?>
+        <table class='projectDetail'>
+        
+        <tr class='header'>
+            <th>Title</th>
+            <td><?= $task->title; ?></td>
+        </tr>
+
+        <tr>
+            <th>Date Created</th>
+            <td colspan=2><?= $task->getTimestamp(); ?></td>
+        </tr>
+
+        <tr>
+            <th>Status</th>
+            <td colspan=2><?= $task->status; ?></td>
+        </tr>
+
+        <tr>
+            <th>Assigned To</th>
+            <td colspan=2><?= $task->assigned_to; ?></td>
+        </tr>
+
+        <tr>
+            <th>Type</th>
+            <td colspan=2><?= $task->type; ?></td>
+        </tr>
+
+        <tr>
+            <th>Description</th>
+            <td colspan=2><?= $task->description; ?></td>
+        </tr>
+
+        <tr>
+            <?php if($_SESSION['userid'] == $project->created_by) : ?>
+                <th colspan=3 id='editlink'><a href=<?= $task->getEditURL(); ?>>Edit</a></th>
+            <?php endif; ?>
+        </tr>
+
+    </table>
+
     <?php endforeach; ?>
     <?php if($_SESSION['userid'] == $project->created_by) : ?>
         <a href=<?= $project->getAddTaskURL(); ?>>Create New Task</a>

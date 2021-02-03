@@ -1,3 +1,7 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 header {
   background: #e3e3e3;
   padding: 2rem;
@@ -44,8 +48,9 @@ ul.tasks > li {
 
 footer {
   background: #e3e3e3;
-  padding: 1rem;
-  text-align: right;
+  padding: 1.5rem;
+  text-align: left;
+  font-size: 0.9rem;
 }
 
 ul#names {
@@ -90,6 +95,10 @@ form#createProject > fieldset > ul > li > textarea {
   resize: none;
 }
 
+textarea {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 p#loginmsg {
   display: flex;
   align-items: center;
@@ -104,8 +113,8 @@ div.projects {
   padding: 3rem;
 }
 
-a#editlink {
-  align-self: flex-end;
+#editlink {
+  text-align: center;
 }
 
 table.project-card{
@@ -166,4 +175,8 @@ div.searchfield {
 
 div.searchfield > button {
 margin-top: 1rem;
+}
+
+table.projectDetail {
+  width: 400px;
 }

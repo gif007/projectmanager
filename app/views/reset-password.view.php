@@ -32,6 +32,10 @@
     </ul>
     </fieldset>
 </form>
-
+<script>
+window.onload = ()=>{
+document.querySelector('input#oldpassword').focus();
+};
+</script>
 
 <?php require('partials/footer.php'); ?>

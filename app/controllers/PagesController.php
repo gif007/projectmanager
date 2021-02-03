@@ -12,6 +12,7 @@ require "app/functions/dd.php";
 
 
 class PagesController {
+    
     public function home() {
         session_start();
         if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
@@ -43,10 +44,13 @@ class PagesController {
                 return redirect('');
             }
         } elseif (sizeof($user) > 0 && $user[0]->firstlogin == true) {
-            $_SESSION["loggedin"] = true;
-            $_SESSION["username"] = $user[0]->username;
-            $_SESSION["userid"] = $user[0]->id;
-            return redirect('reset-password');
+            if ($cleaned_data['password'] == $user[0]->password)
+            {
+                $_SESSION["loggedin"] = true;
+                $_SESSION["username"] = $user[0]->username;
+                $_SESSION["userid"] = $user[0]->id;
+                return redirect('reset-password');
+            }
         } else {
             $message = '<span style="color: red;">Login failed. Please try again:</span>';
             return view('login', compact('message'));
@@ -74,10 +78,20 @@ class PagesController {
 
         $cleaned_data = cleanData($_POST);
 
-        if (!password_verify($cleaned_data['oldpassword'], $user->password))
+        if ($user->firstlogin)
         {
-            $message = '<span style="color: red;">Incorrect entry for current password';
-            return view('reset-password', compact('message'));
+            if ($cleaned_data['oldpassword'] !== $user->password)
+            {
+                $message = '<span style="color: red;">Incorrect entry for current password';
+                return view('reset-password', compact('message'));  
+            }
+        } else 
+        {
+            if (!password_verify($cleaned_data['oldpassword'], $user->password))
+            {
+                $message = '<span style="color: red;">Incorrect entry for current password';
+                return view('reset-password', compact('message'));
+            }
         }
 
         if ($cleaned_data['newpassword'] !== $cleaned_data['newpassword2'])
@@ -91,7 +105,10 @@ class PagesController {
         ];
         
         App::get('database')->update('users', $newpassword, $_SESSION['userid']);
-        App::get('database')->update('users', ['firstlogin' => 0], $_SESSION['userid']);
+        if ($user->firstlogin)
+        {
+            App::get('database')->update('users', ['firstlogin' => 0], $_SESSION['userid']);
+        }
 
         return redirect('');
     }
@@ -174,7 +191,7 @@ class PagesController {
         $project = App::get('database')->selectProject($projectID)[0];
 
         if ($project->created_by !== $_SESSION['userid']) {
-            return redirect('login');
+            return view('unauthorized');
         }
         
         return view('createtask', compact('project'));
@@ -201,7 +218,7 @@ class PagesController {
         $project = App::get('database')->selectProject($projectid)[0];
 
         if ($project->created_by !== $_SESSION['userid']) {
-            return redirect('login');
+            return view('unauthorized');
         }
 
         return redirect("project/$projectid");
@@ -266,7 +283,7 @@ class PagesController {
         $project = App::get('database')->selectProject($projectID)[0];
 
         if ($project->created_by !== $_SESSION['userid']) {
-            return redirect('login');
+            return view('unauthorized');
         }
 
         return view('editproject', compact('project'));
@@ -282,7 +299,7 @@ class PagesController {
         $project = App::get('database')->selectProject($projectID)[0];
 
         if ($project->created_by !== $_SESSION['userid']) {
-            return redirect('login');
+            return view('unauthorized');
         }
 
         $cleaned_data = cleanData($_POST);
@@ -313,7 +330,7 @@ class PagesController {
         $project = App::get('database')->selectProject($task->projectId)[0];
 
         if ($project->created_by !== $_SESSION['userid']) {
-            return redirect('login');
+            return view('unauthorized');
         }
 
         return view('edittask', compact('task'));
@@ -331,7 +348,7 @@ class PagesController {
         $project = App::get('database')->selectProject($task->projectId)[0];
 
         if ($project->created_by !== $_SESSION['userid']) {
-            return redirect('login');
+            return view('unauthorized');
         }
 
         $cleaned_data = cleanData($_POST);

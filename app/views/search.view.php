@@ -23,10 +23,11 @@
     <?php foreach($result as $project) : ?>
             <table class='project-card'>
                 <tr class='header'>
-                    <th>Title</th><th>Date</th>
+                    <th>Title</th><th>Status</th>
                 </tr>
                 <tr>
-                    <td><a href=<?= $project->getURL(); ?>><?= $project->title; ?></a></td><td><?= $project->getTimeStamp(); ?></td>
+                    <td><a href=<?= $project->getURL(); ?>><?= $project->title; ?></a></td>
+                    <td><?= $project->status; ?></td>
                 </tr>
                 <tr class='header'>
                     <th colspan=2>Description</th>
@@ -35,12 +36,12 @@
                     <td colspan=2><?= $project->description; ?></td>
                 </tr>
                 <tr class='header'>
-                    <th>Status</th>
                     <th>Created By</th>
+                    <th>Date Created</th>
                 </tr>
                 <tr>
-                    <td><?= $project->status; ?></td>
                     <td><?= ucwords($project->getUser()); ?></td>
+                    <td><?= $project->getTimeStamp(); ?></td>
                 </tr>
             </table>
         <?php endforeach; ?>
