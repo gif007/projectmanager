@@ -5,7 +5,7 @@
 
 <div class='projects'>
     <?php if (sizeof($projects) == 0) : ?>
-    <p>You currently do not have any projects.</p>
+    <p>The project database is currently empty.</p>
     
     <?php else : ?>
         <?php foreach($projects as $project) : ?>

@@ -39,21 +39,18 @@
             <li>
                 <label for="status">Status:</label>
                 <select id="status" name="status">
-                    <option value="Inactive">Inactive</option>
-                    <option value="On hold">On hold</option>
-                    <option value="Active">Active</option>
-                    <option value="Review">Review</option>
-                    <option value="Completed">Completed</option>
+                    <?php foreach(App\Models\Project::status_choices as $status) : ?>
+                    <option value="<?= $status; ?>"><?= $status; ?></option>
+                    <?php endforeach; ?>
                 </select>
             </li>
 
             <li>
                 <label for="department">Department:</label>
                 <select id="department" name="department">
-                    <option value="Estimating">Estimating</option>
-                    <option value="Design">Design</option>
-                    <option value="Manufacture">Manufacture</option>
-                    <option value="Marketing">Marketing</option>
+                <?php foreach(App\Models\Project::department_choices as $department) : ?>
+                    <option value="<?= $department; ?>"><?= $department; ?></option>
+                    <?php endforeach; ?>
                 </select>
             </li>
         

@@ -16,6 +16,20 @@ class Project
     public $department;
     public $created_by;
 
+    const status_choices = [
+        'Inactive',
+        'On hold',
+        'Active',
+        'Review',
+        'Completed'
+    ];
+    const department_choices = [
+        'Estimating',
+        'Design',
+        'Manufacture',
+        'Marketing'
+    ];
+
     private $tasks = [];
 
     function setTasks()

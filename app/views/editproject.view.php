@@ -35,7 +35,7 @@
             <li>
                 <label for="status">Status:</label>
                 <select id="status" name="status">
-                    <?php foreach(['Inactive', 'On hold', 'Active', 'Review', 'Completed'] as $status) : ?>
+                    <?php foreach(App\Models\Project::status_choices as $status) : ?>
                     <?php if ($project->status == $status) : ?>
                     <option value="<?= $status; ?>" selected><?= $status; ?></option>
                     <?php else : ?>
@@ -48,7 +48,7 @@
             <li>
                 <label for="department">Department:</label>
                 <select id="department" name="department">
-                <?php foreach(['Estimating', 'Design', 'Manufacture', 'Marketing'] as $department) : ?>
+                <?php foreach(App\Models\Project::department_choices as $department) : ?>
                     <?php if ($project->department == $department) : ?>
                     <option value="<?= $department; ?>" selected><?= $department; ?></option>
                     <?php else : ?>

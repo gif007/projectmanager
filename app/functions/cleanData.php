@@ -6,7 +6,7 @@ function cleanData($arr)
 
     foreach($arr as $key => $value)
     {
-        $cleaned_data[$key] = htmlspecialchars($value);
+        $cleaned_data[$key] = htmlspecialchars($value, ENT_QUOTES);
     }
 
     return $cleaned_data;
