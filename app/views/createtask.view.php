@@ -29,25 +29,18 @@
             <li>
                 <label for="status">Status:</label>
                 <select id="status" name="status">
-                    <option value="Inactive">Inactive</option>
-                    <option value="On hold">On hold</option>
-                    <option value="Active">Active</option>
-                    <option value="Review">Review</option>
-                    <option value="Completed">Completed</option>
+                <?php foreach(App\Models\Task::status_choices as $status) : ?>
+                    <option value="<?= $status; ?>"><?= $status; ?></option>
+                <?php endforeach; ?>
                 </select>
             </li>
 
             <li>
                 <label for="assigned_to">Assigned to:</label>
                 <select id="assigned_to" name="assigned_to">
-                    <option value="Joey">Joey</option>
-                    <option value="Sue">Sue</option>
-                    <option value="Roger">Roger</option>
-                    <option value="Barbara">Barbara</option>
-                    <option value="Tony">Tony</option>
-                    <option value="Amy">Amy</option>
-                    <option value="Steve">Steve</option>
-                    <option value="Carol">Carol</option>
+                <?php foreach(App\Models\Task::assigned_to_choices as $assigned_to) : ?>
+                    <option value="<?= $assigned_to; ?>"><?= $assigned_to; ?></option>
+                <?php endforeach; ?>
                 </select>
             </li>
         

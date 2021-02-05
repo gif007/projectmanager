@@ -25,7 +25,7 @@
             <li>
                 <label for="status">Status:</label>
                 <select id="status" name="status">
-                <?php foreach(['Inactive', 'On hold', 'Active', 'Review', 'Completed'] as $status) : ?>
+                <?php foreach(App\Models\Task::status_choices as $status) : ?>
                     <?php if ($task->status == $status) : ?>
                     <option value="<?= $status; ?>" selected><?= $status; ?></option>
                     <?php else : ?>
@@ -38,7 +38,7 @@
             <li>
                 <label for="assigned_to">Assigned To:</label>
                 <select id="assigned_to" name="assigned_to">
-                <?php foreach(['Joey', 'Sue', 'Roger', 'Barbara', 'Tony', 'Amy', 'Steve', 'Carol'] as $assigned_to) : ?>
+                <?php foreach(App\Models\Task::assigned_to_choices as $assigned_to) : ?>
                     <?php if ($task->assigned_to == $assigned_to) : ?>
                     <option value="<?= $assigned_to; ?>" selected><?= $assigned_to; ?></option>
                     <?php else : ?>

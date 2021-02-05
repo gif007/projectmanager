@@ -12,19 +12,26 @@ class Task
     public $status;
     public $assigned_to;
     public $projectId;
-                       
-    
-    
 
-    // function __construct($title, $date_set, $status, $assigned_to, $desc, $type)
-    // {
-    //     $this->title = $title;
-    //     $this->date_set = $date_set;
-    //     $this->status = $status;
-    //     $this->assigned_to = $assigned_to;
-    //     $this->desc = $desc;
-    //     $this->type = $type;
-    // }
+    const status_choices = [
+        'Inactive',
+        'On hold',
+        'Active',
+        'Review',
+        'Completed'
+    ];
+
+    const assigned_to_choices = [
+        'Joey',
+        'Sue',
+        'Roger',
+        'Barbara',
+        'Tony',
+        'Amy',
+        'Steve',
+        'Carol'
+    ];
+
 
     public function getEditURL()
     {
