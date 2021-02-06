@@ -34,18 +34,6 @@ ul.tasks > li {
   padding: 0.5rem 0;
 }
 
-.green {
-  display: inline-block;
-  background-color: green;
-  color: white;
-}
-
-.red {
-  display: inline-block;
-  background-color: red;
-  color: white;
-}
-
 footer {
   background: #e3e3e3;
   padding: 1.5rem;
