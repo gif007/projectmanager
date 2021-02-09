@@ -9,31 +9,34 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 ```
-PHP
+PHP 7.4 Copyright (c) The PHP Group
+MariaDB Distrib 10.4.17
 ```
-See [requirements](requirements.txt) for specific packages and versions
 
 ### Installing
 
 You will need to have PHP installed as well as MySQL Server (or MariaDB).
 
-Enter the following line into your command terminal to see which version of php you have installed. If not, please see installation instruction at [python.org](https://docs.python.org/3/).
+Enter the following line into your command terminal to see which version of php you have installed. If not, please see installation instruction at [php.net](https://www.php.net/).
 
 ```
 php --version
 ```
 
-In order to install the required packages please enter the following into your command terminal while inside of the project folder:
+Enter the following line into your command terminal to see which version of MariaDB you have installed. If not, please see installation instruction at [mariadb.org](https://mariadb.org/).
 
 ```
-
+MariaDB --version
 ```
 
-![Weather app](py-weather.jpg)
+
+![projectmanager](pms1.jpg)
+![projectmanager](pms2.jpg)
+![projectmanager](pms3.jpg)
 
 ## Built With
 
-* [VSCode](http://www.sublimetext.com/docs/3/) - Development environment
+* [VSCode](https://code.visualstudio.com/) - Development environment
 * [Git](https://git-scm.com/) - Version Control System
 
 ## Authors
@@ -46,4 +49,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Laracast
+* See [Laracasts.com](https://laracasts.com/series/php-for-beginners) for the tutorial on which the underlying MVC framework was built
