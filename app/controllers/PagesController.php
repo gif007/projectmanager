@@ -34,6 +34,7 @@ class PagesController {
         $cleaned_data = cleanData($_POST);
 
         $user = App::get('database')->authenticateUser($cleaned_data['username']);
+        $message = '<span style="color: red;">Login failed. Please try again.</span>';
 
         if (sizeof($user) > 0 && $user[0]->firstlogin == false) {
             if (password_verify($cleaned_data['password'], $user[0]->password))
@@ -42,6 +43,9 @@ class PagesController {
                 $_SESSION["username"] = $user[0]->username;
                 $_SESSION["userid"] = $user[0]->id;
                 return redirect('');
+            } else {
+                
+                return view('login', compact('message'));
             }
         } elseif (sizeof($user) > 0 && $user[0]->firstlogin == true) {
             if ($cleaned_data['password'] == $user[0]->password)
@@ -52,7 +56,7 @@ class PagesController {
                 return redirect('reset-password');
             }
         } else {
-            $message = '<span style="color: red;">Login failed. Please try again:</span>';
+            
             return view('login', compact('message'));
         }
     }
